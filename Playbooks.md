@@ -2,6 +2,31 @@
 
 Although you can run ad-hoc commands in ansible, in practice, you'll largely be expected to create ansible playbooks. Ansible playbooks are essentially files formatted as [yaml](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
+### Hello Playbooks
+
+Let's confirm our ansible/node0 VM setup still works.
+
+```bash
+ansible all i -inventory -m ping
+```
+
+Instead of running this on the command line, we can run this within an ansible playbook (see [ping.yml](ping.yml)). 
+
+```yaml
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: ping all hosts
+    ping:
+```
+
+You can run this playbook by running:
+
+```bash
+ansible-playbook ping.yml -i inventory
+```
+
 ### Commands/Modules
 
 The simpliest way to get started is to try executing some basic tasks inside of a playbook.

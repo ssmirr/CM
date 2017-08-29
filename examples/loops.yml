@@ -13,7 +13,7 @@
 
   tasks: 
     - name: Install git
-      apt: pkg=git state=present
+      apt: pkg=git state=present update_cache=yes
       become: yes
 
     # emit a debug message with each package

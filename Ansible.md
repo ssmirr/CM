@@ -34,7 +34,7 @@ Note, you actually don't have a keys directory yet.
 
 On the host machine, `cd /boxes/node0`. Then run `vagrant ssh-config` to get path of the private_key of node0, open it up and copy contents into textfile. In mac os, you can run `pbcopy < path/private_key` to copy contents into clipboard.
 
-Inside the configuration server, create a `keys/node0.key` file that contains the private_key you previously copied.  You may need to `chmod 500 keys/node0.key`.
+Inside the configuration server, create a `keys/node0.key` file that contains the private_key you previously copied.  You may need to `chmod 600 keys/node0.key`.
 
 Test your connection between ansible and node0:
 
