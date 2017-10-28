@@ -38,7 +38,7 @@ Inside the configuration server, create a `keys/node0.key` file that contains th
 
 Test your connection between ansible and node0:
 
-    ssh -i keys/node0.key vagrant@192.168.1.100
+    ssh -i keys/node0.key vagrant@192.168.33.100
 
 If you see an error or prompt for a password, you have a problem with your key setup.
 
@@ -54,7 +54,7 @@ Let's install a web server, called nginx (say like engine-X), on the node. The w
 
     ansible all -s -m apt -i inventory -a 'pkg=nginx state=installed update_cache=true'
 
-Open a browser and enter in your node's ip address, e.g. http://192.168.1.100:80/
+Open a browser and enter in your node's ip address, e.g. http://192.168.33.100:80/
 
 Removing nginx.
 
