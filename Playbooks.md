@@ -7,7 +7,7 @@ Although you can run ad-hoc commands in ansible, in practice, you'll largely be 
 Let's confirm our ansible/node0 VM setup still works.
 
 ```bash
-ansible all i -inventory -m ping
+ansible all -i inventory -m ping
 ```
 
 Instead of running this on the command line, we can run this within an ansible playbook (see [ping.yml](ping.yml)). 
