@@ -199,7 +199,7 @@ Open a browser and enter in your node's ip address, e.g. http://192.168.33.100
 
 You should be able to verify all checks pass:
 
-   opunit verify -i opunit_inventory.yml
+    opunit verify -i opunit_inventory.yml
 
 Great work!
 
