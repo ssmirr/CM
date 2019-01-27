@@ -19,5 +19,5 @@
      - contains: 
          comment: The web-srv ip address should be specified in the ansible inventory file
          string: 192.168.33.100
-         file: /ansible-srv/inventory
+         file: ~/inventory
 

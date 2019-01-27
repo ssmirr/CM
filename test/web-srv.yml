@@ -7,3 +7,12 @@
          file: ~/.ssh/authorized_keys
      - reachable:
         - ~/ssh_test.txt
+
+- group:
+   description: "nginx test"
+   checks:
+    - availability:
+        port: 80
+        status: 200
+        url: /
+
