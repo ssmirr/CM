@@ -4,4 +4,6 @@
      - contains: 
          comment: The public key for the web server should be authorized so ansible can connect to it.
          string: web-srv
-         file: ~/.ssh/authorized_key
+         file: ~/.ssh/authorized_keys
+     - reachable:
+        - ~/ssh_test.txt

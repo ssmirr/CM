@@ -10,7 +10,7 @@
     checks:
      - contains: 
          comment: The private key for the web server should be stored on ansible server.
-         string: -----BEGIN RSA PRIVATE KEY-----
+         string: -----BEGIN
          file: ~/.ssh/web-srv
 
 - group:
