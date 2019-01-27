@@ -1,5 +1,3 @@
-[Ansible](Ansible.md) | [Playbooks](Playbooks.md)
-
 Configuration Management Workshop
 ----------------------------------
 
