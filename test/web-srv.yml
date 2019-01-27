@@ -1,6 +1,7 @@
 - group:
-   description: "Essential development tools"
+   description: "ssh setup"
    checks:
-     - version:
-         cmd: node --version
-         range: ^10.x.x
+     - contains: 
+         comment: The public key for the web server should be authorized so ansible can connect to it.
+         string: web-srv
+         file: ~/.ssh/authorized_key
