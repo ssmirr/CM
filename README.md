@@ -215,7 +215,7 @@ Webserver should be dead.
 
 ## Extra fun
 
-Can you provision a remote VM (from digital ocean/etc.) and then add its details to the inventory? Can you run your nginx command on it too?
+Can you provision a remote VM (from digitalocean/etc.) and then add its details to the inventory? Can you run your nginx command on it too?
 
 ## Next steps
 
