@@ -1,6 +1,4 @@
-[Virtual Machine](VM.md) | [Ansible](Ansible.md) | [Playbooks](Playbooks.md)
-
-## Creating Virtual Machine
+## Creating Virtual Machine in Vagrant
 
 * Install [vagrant](https://www.vagrantup.com/downloads.html).
 * Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) is a recommended provider.
@@ -9,7 +7,7 @@
 When you create a VM with vagrant, it will create a Vagrantfile in your current directory as well as a hidden directory (.vagrant).
 Vagrant only allows one virtual machine configuration per directory. You will want to organize your VMs:
 
-* `mkdir -p /boxes/ansible`; `cd /boxes/ansible`
+* `cd servers/ansible-srv/`
 
 Initialize a virtual machine. `ubuntu/trusty64` is one default image. A list of other virtual machine images can be found [here](https://atlas.hashicorp.com/boxes/search).
 
@@ -59,19 +57,18 @@ In virtualbox, VMs typically have [four ways](http://catlingmindswipe.blogspot.c
 - Internal network
 - Host Only (Recommended).
 
-Unlike the first virtual machine, you cannot use the default mode, because there will be no way for the ansible VM to talk to the node VM. Instead, you much choose between bridged or host-only.
+Unlike the first virtual machine, you cannot use the default mode, because there will be no way for the ansible VM to talk to the web-srv VM. Instead, you much choose between bridged or host-only.
 
-Private networking (Host-only) is the recommended setting for Linux/Mac/Windows 10. **Bonus**: You can use hard-coded ip address in your scripts. Uncomment the following line in Vagrantfile:
+Private networking (Host-only) is the recommended setting for Linux/Mac/Windows 10. **Benefit**: You can use hard-coded ip address in your scripts. Uncomment the following line in Vagrantfile:
 
 ```ruby
 config.vm.network "private_network", ip: "192.168.33.10"
 ```
 
-Then run, `vagrant reload`. 
+Then run, `vagrant reload`. This will reboot the machine in order for the new settings to take effect.
 
 ## Doing it once again.
 
-* Create a new VM with vagrant in /boxes/node0.
-* Enable private networking, but with a different ip address.
-
+* Create a new VM with vagrant in `/servers/web-srv`.
+* Enable private networking, but with a different ip address (`192.168.33.100`).
 
