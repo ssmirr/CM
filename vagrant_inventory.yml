@@ -1,5 +1,4 @@
----
-- baker:
+- vagrant:
   - name: ansible-srv
     target: servers/ansible-srv
     criteria_path: test/ansible-srv.yml
