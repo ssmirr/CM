@@ -213,6 +213,10 @@ Since `nginx` is a metapackage, show you also need to run this to clear the serv
     
 Webserver should be dead.
 
+## Extra fun
+
+Can you provision a remote VM (from digital ocean/etc.) and then add its details to the inventory? Can you run your nginx command on it too?
+
 ## Next steps
 
 Run ansible commands can be useful for exploration and debugging. However, we want to be able to organize these commands into reusable configuration scripts.
