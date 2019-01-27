@@ -207,7 +207,7 @@ Great work!
 
     ansible all -s -m apt -i inventory -a 'pkg=nginx state=absent update_cache=true'
 
-Since `nginx` is a metapackage, show you also need to run this to clear the services:
+Since `nginx` is a metapackage, you may also need to run this to stop and remove the services:
 
     ansible all -s -m shell -i inventory -a 'sudo apt-get -y autoremove'
     
