@@ -1,0 +1,14 @@
+- group:
+   description: "Essential development tools"
+   checks:
+     - version:
+         cmd: ansible --version
+         range: ^2.7.x
+
+- group:
+    description: "Inventory setup"
+    checks:
+     - contains: 
+         comment: The web-srv ip address should be specified in the ansible inventory file
+         string: 192.168.33.100
+         file: /ansible-srv/inventory

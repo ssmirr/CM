@@ -1,0 +1,5 @@
+name: ansible-srv
+vm:
+  ip: 192.168.33.10
+tools:
+  - ansible

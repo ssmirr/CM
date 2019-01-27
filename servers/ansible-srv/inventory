@@ -1,0 +1,8 @@
+- group:
+    description: "item"
+    checks:
+
+     - contains: 
+         comment: App is a submodule, its hooks are located in `.git/modules/App/hooks`.
+         string: npm test
+         file: .git/modules/App/hooks/pre-commit

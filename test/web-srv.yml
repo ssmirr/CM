@@ -1,0 +1,6 @@
+- group:
+   description: "Essential development tools"
+   checks:
+     - version:
+         cmd: node --version
+         range: ^10.x.x
