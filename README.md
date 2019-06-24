@@ -52,7 +52,7 @@ Verify that ansible was installed by running opunit:
 
 ```
 # Change back to root directory
-cd ../.. && opunit verify -i opunit_inventory.yml
+opunit verify -i opunit_inventory.yml
 ```
 
 
