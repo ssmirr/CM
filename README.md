@@ -32,6 +32,13 @@ If you're using vagrant VMs, you'll have to use `-i vagrant_inventory.yml`, inst
 
 Let's create a configuration server. This server will be using a "push-based model", where we will be sending configuration commands to other external servers. It also needs to be configured with ansible.
 
+Check virtualization.
+
+```bash
+$ VBoxManage list vms
+```
+
+
 Create the Virtual Machine.
 
 ```bash
