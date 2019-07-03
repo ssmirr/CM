@@ -106,6 +106,13 @@ ansible-srv $ chmod 600 ~/.ssh/web-srv
 ansible-srv $ exit
 ```
 
+Or use a simple command:
+
+```bash
+$ cat web-srv | ssh -i ~/Library/Baker/BakerForMac/baker_rsa @192.168.33.10 cat > ~/.ssh/web-srv && chmod 600 ~/.ssh/web-srv
+```
+
+
 #### Setting up the public key
 
 Copy the web-srv.pub file from your host.
