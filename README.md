@@ -55,11 +55,9 @@ You should see baker create the virtual machine.
 ✔ Installing ansible
 ```
 
-Verify that ansible was installed by running opunit:
+In a new terminal, or changing back to root directory: `cd ../..`: Verify that ansible was installed by running opunit:
 
 ```
-# Change back to root directory
-cd ../..
 opunit verify -i opunit_inventory.yml
 ```
 
