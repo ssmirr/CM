@@ -80,7 +80,7 @@ You need a way to automatically connect to your server without having to manuall
 
 From your host machine, create a new public/private key pair, running the following command, and hitting enter for the default prompts:
 
-    ssh-keygen -t rsa -b 4096 -C "web-srv" -f web-srv
+    ssh-keygen -t rsa -b 4096 -C "web-srv" -f web-srv -N ""
 
 ![ssh connection](img/connection.png)
 
