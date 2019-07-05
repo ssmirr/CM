@@ -109,7 +109,7 @@ ansible-srv $ exit
 Or use a simple command:
 
 ```bash
-$ cat web-srv | ssh -i ~/Library/Baker/BakerForMac/baker_rsa vagrant@192.168.33.10 "cat > ~/.ssh/web-srv && chmod 600 ~/.ssh/web-srv"
+$ cat web-srv | ssh -i ~/Library/Baker/BakerForMac/baker_rsa -o StrictHostKeyChecking=no vagrant@192.168.33.10 "cat > ~/.ssh/web-srv && chmod 600 ~/.ssh/web-srv"
 ```
 
 
@@ -131,7 +131,7 @@ Take care not to delete other entries, which may affect your ability to use vagr
 You may consider running this simple command to update the public key entry:
 
 ```bash
-$ cat web-srv.pub | ssh -i ~/Library/Baker/BakerForMac/baker_rsa vagrant@192.168.33.100 "cat >> ~/.ssh/authorized_keys"
+$ cat web-srv.pub | ssh -i ~/Library/Baker/BakerForMac/baker_rsa -o StrictHostKeyChecking=no vagrant@192.168.33.100 "cat >> ~/.ssh/authorized_keys"
 ```
 
 #### Testing your connection/Errors
