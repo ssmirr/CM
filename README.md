@@ -58,9 +58,8 @@ You should see baker create the virtual machine.
 In a new terminal, or changing back to root directory: `cd ../..`: Verify that ansible was installed by running opunit:
 
 ```
-opunit verify -i opunit_inventory.yml
+opunit verify servers/ansible-srv -c test/ansible-srv.yml 
 ```
-
 
 ### The web server
 
