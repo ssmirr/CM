@@ -155,7 +155,7 @@ You can now perform ad-hoc commands and even execute scripts on machines without
 
 For example, when you run this command.
 
-    ssh -i ~/.ssh/web-srv vagrant@192.168.33.100 ls /
+    ssh -i ~/.ssh/web-srv -o UserKnownHostsFile=/dev/null vagrant@192.168.33.100 ls /
 
 You can see the directory of the web-srv.
 
