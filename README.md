@@ -128,6 +128,12 @@ web-srv $ exit
 
 Take care not to delete other entries, which may affect your ability to use vagrant/Baker to ssh into the machine. You also do not need to change the permissions of the file.
 
+You may consider running this simple command to update the public key entry:
+
+```bash
+$ cat web-srv.pub | ssh -i ~/Library/Baker/BakerForMac/baker_rsa vagrant@192.168.33.100 "cat >> ~/.ssh/authorized_keys"
+```
+
 #### Testing your connection/Errors
 
 Inside the ansible-srv, test your connection between the servers:
