@@ -183,9 +183,11 @@ An inventory file allows ansible to define, group, and coordinate configuration 
 
 Inside the ansible-srv, edit the `inventory` file to include the ip address, user, and path to the private key:
 
-```ini    
+```ini 
 [web]
 192.168.33.100 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.ssh/web-srv 
+[web:vars]
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ```
 
 Now, run the ping test to verify ansible is able to talk to the web-srv!
