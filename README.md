@@ -235,7 +235,7 @@ Great work!
 
 Since `nginx` is a metapackage, you may also need to run this to stop and remove the services:
 
-    ansible all -s -m shell -i inventory -a 'sudo apt-get -y autoremove'
+    ansible all -s -m shell -i inventory -a 'sudo apt-get -y autoremove nginx'
     
 Webserver should be dead.
 
