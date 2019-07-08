@@ -164,7 +164,9 @@ For example, when you run this command.
 
 You can see the directory of the web-srv.
 
-Practice: From your ansible-srv, create a file by executing `touch ssh_test.txt` on the remote server. Verify it exists.
+Practice: From your ansible-srv, create a file by executing the command below on the remote server. Verify it exists.
+
+    touch ssh_test.txt
 
 By this point, you should be able to pass the ssh setup checks in opunit: `opunit verify -i opunit_inventory.yml`.
 
