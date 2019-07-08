@@ -195,13 +195,6 @@ Now, run the ping test to verify ansible is able to talk to the web-srv!
 
     ansible all -m ping -i inventory
 
-Note: this will fail because python is not available on the target machine. However, python3 is! We can adjust the connection to account for this. Inside the inventory, we can add a new variable for all entries in our `web` group:
-
-```ini
-[web:vars]
-ansible_python_interpreter=/usr/bin/python3
-```
-
 Now, we should see a successful connection!
 
 ```
@@ -240,3 +233,13 @@ Can you provision a remote VM (from digitalocean/etc.) and then add its details 
 Run ansible commands can be useful for exploration and debugging. However, we want to be able to organize these commands into reusable configuration scripts.
 
 Next workshop, we will learn about creating and running ansible playbooks.
+
+## Common errors
+Note, on older versions of ansible, you may fail to ping an item in your inventory if the server does not have python2. One workaround is to specify the python version explicitly. In newer versions of ansible, this will automatically be discovered by ansible. 
+
+You can adjust the connection to account for this. Inside the inventory, add a new variable for all entries in `web` group:
+
+```ini
+[web:vars]
+ansible_python_interpreter=/usr/bin/python3
+```
