@@ -229,16 +229,6 @@ You should be able to verify all checks pass:
 
 Great work!
 
-#### Removing nginx.
-
-    ansible all -s -m apt -i inventory -a 'pkg=nginx state=absent update_cache=true'
-
-Since `nginx` is a metapackage, you may also need to run this to stop and remove the services:
-
-    ansible all -s -m shell -i inventory -a 'sudo apt-get -y autoremove'
-    
-Webserver should be dead.
-
 ## Extra fun
 
 Can you provision a remote VM (from digitalocean/etc.) and then add its details to the inventory? Can you run your nginx command on it too?
