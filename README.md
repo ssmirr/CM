@@ -92,9 +92,9 @@ From your host machine, create a new public/private key pair, running the follow
 
 ![ssh connection](img/connection.png)
 
-After generating the keys, you need to copy them onto the servers. The private key (*secret*, tell know one 🤐), needs to be stored internally in the configuration server. The public key (🌐), needs to be sent over to the web-server.
+After generating the keys, you need to copy them onto the servers. The private key (*secret*, tell know one 🤐), needs to be stored internally in the configuration server. The public key (🌐), needs to be _authorized_ for use on the web-server.
 
-#### Setting up the private key
+#### Storing the private key in the configuration server ⚒️
 
 One nice trick is to use a copy utility to copy a file into your copy/paste buffer:
 
@@ -121,7 +121,7 @@ $ cat web-srv | ssh -i ~/Library/Baker/BakerForMac/baker_rsa -o StrictHostKeyChe
 ```
 
 
-#### Setting up the public key
+#### Authorizing the public key on the web server 🌐
 
 Copy the web-srv.pub file from your host.
 
