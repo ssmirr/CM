@@ -50,10 +50,26 @@ Executing VBoxManage modifyvm "ansible-srv" --nic2 hostonly
 Executing VBoxManage modifyvm "ansible-srv" --nictype2 virtio
 ```
 
+Inside the ansible-srv, install ansible:
+
+```bash
+sudo add-apt-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible -y
+```
+
+
 Verify that ansible was installed by running opunit.
 
 ```
 opunit verify servers/ansible-srv -c test/ansible-srv.yml 
+```
+
+You should see the ansible check pass:
+
+```bash
+	version check
+	    ✔   ansible --version: 2.9.4 > ^2.7.x => true 
 ```
 
 ### The web server
@@ -61,12 +77,10 @@ opunit verify servers/ansible-srv -c test/ansible-srv.yml
 Let's create another virtual machine for the web server. 
 
 ```bash
-$ cd servers/web-srv
-$ cat baker.yml
-$ baker bake
+$ bakerx run web-srv bionic --ip 192.168.33.100
 ```
 
-You should see baker create the virtual machine. Verify `baker ssh` works, then `exit` back to your host machine.
+You should see baker create the virtual machine.
 
 ## Creating a connection between your servers
 
