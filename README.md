@@ -86,13 +86,13 @@ You should see baker create the virtual machine.
 
 You need a way to automatically connect to your server without having to manually authenicate each connection. We will create a pair of public/private keys for [authentication through ssh](https://www.ssh.com/ssh/public-key-authentication#sec-Asymmetric-Cryptography-Algorithms).
 
-From your host machine, create a new public/private key pair, running the following command, and hitting enter for the default prompts:
+From your host machine, create a new public/private key pair, running the following command:
 
     ssh-keygen -t rsa -b 4096 -C "web-srv" -f web-srv -N ""
 
 ![ssh connection](img/connection.png)
 
-After generating the keys, you need to copy them onto the servers. The private key (*secret*, tell know one 🤐), needs to be sent over to the configuration server. The public key (🌐), needs to be sent over to the web-server.
+After generating the keys, you need to copy them onto the servers. The private key (*secret*, tell know one 🤐), needs to be stored internally in the configuration server. The public key (🌐), needs to be sent over to the web-server.
 
 #### Setting up the private key
 
