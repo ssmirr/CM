@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+    - action: command echo {{item}}
+      register: out
+      changed_when: "'z' in out.stdout"
+      with_items:
+        - hello
+        - foo
+        - bye
+        - zzz

@@ -1,0 +1,13 @@
+- hosts: all
+
+  vars: 
+    packages:
+      - gcc
+      - debconf-utils
+      - git
+
+  tasks: 
+    - name: Install git
+      apt: pkg={{item}} state=present update_cache=yes
+      become: yes
+      with_items: "{{packages}}"
