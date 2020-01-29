@@ -102,7 +102,11 @@ One nice trick is to use a copy utility to copy a file into your copy/paste buff
 * Windows: `clip < web-srv`
 * Linux: [Check out one of these options](https://superuser.com/a/288333/862331).
 
-Let's go to the ansible-srv (`cd servers/ansible-srv`, then `baker ssh`).
+Let's go to the ansible-srv:
+
+```
+bakerx ssh ansible-srv
+```
 
 Using a file editor, paste and store your private key in a file:
 
@@ -117,7 +121,7 @@ ansible-srv $ exit
 Or use a simple command:
 
 ```bash
-$ cat web-srv | ssh -i ~/Library/Baker/BakerForMac/baker_rsa -o StrictHostKeyChecking=no vagrant@192.168.33.10 "cat > ~/.ssh/web-srv && chmod 600 ~/.ssh/web-srv"
+$ cat web-srv | ssh -i ~/.bakerx/insecure_private_key -o StrictHostKeyChecking=no vagrant@192.168.33.10 "cat > ~/.ssh/web-srv && chmod 600 ~/.ssh/web-srv"
 ```
 
 
@@ -134,12 +138,12 @@ web-srv $ vim ~/.ssh/authorized_keys`
 web-srv $ exit
 ```
 
-Take care not to delete other entries, which may affect your ability to use vagrant/Baker to ssh into the machine. You also do not need to change the permissions of the file.
+Take care not to delete other entries, which may affect your ability to use bakerx to ssh into the machine. You also do not need to change the permissions of the file.
 
 You may consider running this simple command to update the public key entry:
 
 ```bash
-$ cat web-srv.pub | ssh -i ~/Library/Baker/BakerForMac/baker_rsa -o StrictHostKeyChecking=no vagrant@192.168.33.100 "cat >> ~/.ssh/authorized_keys"
+$ cat web-srv.pub | ssh -i ~/.bakerx/insecure_private_key -o StrictHostKeyChecking=no vagrant@192.168.33.100 "cat >> ~/.ssh/authorized_keys"
 ```
 
 #### Testing your connection/Errors
@@ -187,7 +191,7 @@ Writing bash scripts can be error-prone. Most commands are not idempotent, meani
 
 Ansible is a tool for performing configuration changes on multiple machines. Ansible uses a push-based model for configuration management, performing idempotent commands over ssh, without requiring any agent running. The implementation is rather straightforward: _Ansible commands are translated into python snippets, and then copied over to the target machine, and executed. This requires that python is installed on the target machine_.
 
-## Inventory
+### Inventory
 
 An inventory file allows ansible to define, group, and coordinate configuration management of multiple machines. At the most basic level, it basically lists the names of an asset and details about how to connect to it.
 
@@ -213,7 +217,7 @@ We should see a successful connection!
 }
 ```
 
-## Ansible commands
+### Ansible commands
 
 We can test our ability to use ansible for a simple configuration management task.
 
