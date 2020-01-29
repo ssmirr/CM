@@ -26,7 +26,7 @@ $ opunit verify -i opunit_inventory.yml
 
 ## Creating your servers 
 
-### The configuration server
+### The configuration server ⚒️
 
 Let's create a configuration server. This server will be using a "push-based model", where we will be sending configuration commands to other external servers. We will install ansible.
 
@@ -72,7 +72,7 @@ You should see the ansible check pass:
 	    ✔   ansible --version: 2.9.4 > ^2.7.x => true 
 ```
 
-### The web server
+### The web server 🌐
 
 Let's create another virtual machine for the web server. 
 
