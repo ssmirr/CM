@@ -10,27 +10,25 @@ In this workshop, we'll cover the basics of setting up a simple configuration se
 
 ### Before you get started
 
-* [opunit and node.js should be installed](https://github.com/CSC-DevOps/profile#opunit), and you pass the course profile check:  
-   `opunit profile CSC-DevOps/profile:519.yml`
-* You can create a local VM with VirtualBox/Baker. If you can only get vagrant to work, then you will need to perform [some extra steps](VM.md).
 * Clone this repo with: `git clone https://github.com/CSC-DevOps/CM` 
 * Make sure you have a shell open in the right directory: `cd CM`.
+* Update opunit: `npm install opunit -g`. Ensure `opunit --version >= 0.4.4`.
+* Update bakerx, take advantage of the new `--ip` option: `npm install ottomatica/bakerx -g` or `cd bakerx && npm install && npm update`. Ensure `bakerx --version` says `bakerx@0.6.5 virtcrud@7ff51d4`.
+
 
 ### Checking progress on workshop
 
-To check the configuration of the configuration and web server, we will use `opunit` to run checks on the virtual machines listed in the inventory file. We can run checks from the top-level directory as follows: 
+To check the configuration of the ansible server and web server, we will use `opunit` to run checks on the virtual machines listed in the inventory file. We can run checks from the top-level directory as follows: 
 
 ```bash
 $ opunit verify -i opunit_inventory.yml
 ```
 
-If you're using vagrant VMs, you'll have to use `-i vagrant_inventory.yml`, instead.
-
 ## Creating your servers 
 
 ### The configuration server
 
-Let's create a configuration server. This server will be using a "push-based model", where we will be sending configuration commands to other external servers. It also needs to be configured with ansible.
+Let's create a configuration server. This server will be using a "push-based model", where we will be sending configuration commands to other external servers. We will install ansible.
 
 Check virtualization.
 
@@ -42,20 +40,17 @@ $ VBoxManage list vms
 Create the Virtual Machine.
 
 ```bash
-$ cd servers/ansible-srv
-$ cat baker.yml
-$ baker bake
+$ bakerx run ansible-srv bionic --ip 192.168.33.10
 ```
 
-You should see baker create the virtual machine.
+You should see bakerx create the virtual machine with a hostonly network.
 
 ```
-✔ Running apt-get update on VM
-✔ Preparing ansible
-✔ Installing ansible
+Executing VBoxManage modifyvm "ansible-srv" --nic2 hostonly
+Executing VBoxManage modifyvm "ansible-srv" --nictype2 virtio
 ```
 
-In a new terminal, or changing back to root directory: `cd ../..`: Verify that ansible was installed by running opunit:
+Verify that ansible was installed by running opunit.
 
 ```
 opunit verify servers/ansible-srv -c test/ansible-srv.yml 
