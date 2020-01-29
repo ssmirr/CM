@@ -62,7 +62,7 @@ sudo apt-get install ansible -y
 Verify that ansible was installed by running opunit.
 
 ```
-opunit verify servers/ansible-srv -c test/ansible-srv.yml 
+$ opunit verify vagrant@192.168.33.10 --ssh_key ~/.bakerx/insecure_private_key -c test/ansible-srv.yml  
 ```
 
 You should see the ansible check pass:
