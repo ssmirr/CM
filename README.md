@@ -150,7 +150,7 @@ $ cat web-srv.pub | ssh -i ~/.bakerx/insecure_private_key -o StrictHostKeyChecki
 
 Inside the ansible-srv, test your connection between the servers:
 
-    ssh -i ~/.ssh/web-srv -o UserKnownHostsFile=/dev/null vagrant@192.168.33.100
+    ssh -i ~/.ssh/web-srv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null vagrant@192.168.33.100
 
 Note: You should also be able to make this same connection from your host machine, since you also have private key, locally.
 
