@@ -13,7 +13,7 @@ In this workshop, we'll cover the basics of setting up a simple configuration se
 * Clone this repo with: `git clone https://github.com/CSC-DevOps/CM` 
 * Make sure you have a shell open in the right directory: `cd CM`.
 * Update opunit: `npm install opunit -g`. Ensure `opunit --version >= 0.4.4`.
-* Update bakerx, take advantage of the new `--ip` option: `npm install ottomatica/bakerx -g` or `cd bakerx && npm install && npm update`. Ensure `bakerx --version` says `bakerx@0.6.5 virtcrud@7ff51d4`.
+* Update bakerx, take advantage of the new `--ip` option: `npm install ottomatica/bakerx -g` or `cd bakerx && npm install && npm update`. Ensure `bakerx --version` says `bakerx@0.6.7 virtcrud@1c9b4ba`.
 
 
 ### Checking progress on workshop
