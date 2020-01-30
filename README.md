@@ -150,7 +150,7 @@ $ cat web-srv.pub | ssh -i ~/.bakerx/insecure_private_key -o StrictHostKeyChecki
 
 Inside the ansible-srv, test your connection between the servers:
 
-    ssh -i ~/.ssh/web-srv -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null vagrant@192.168.33.100
+    ssh -i ~/.ssh/web-srv -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no vagrant@192.168.33.100
 
 Note: You should also be able to make this same connection from your host machine, since you also have private key, locally.
 
@@ -225,7 +225,7 @@ We can test our ability to use ansible for a simple configuration management tas
 
 Let's install a web server, called nginx (say like engine-X), on the web-srv VM. The web server will automatically start as a service.
 
-    ansible all -b -m apt -i inventory -a 'pkg=nginx state=installed update_cache=true'
+    ansible all -b -m apt -i inventory -a 'pkg=nginx state=present update_cache=true'
 
 Open a browser and enter in your node's ip address, e.g. http://192.168.33.100
 
