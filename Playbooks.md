@@ -1,10 +1,8 @@
-[Virtual Machine](VM.md) | [Ansible](Ansible.md) | [Playbooks](Playbooks.md)
-
 Although you can run ad-hoc commands in ansible, in practice, you'll largely be expected to create ansible playbooks. Ansible playbooks are essentially files formatted as [yaml](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
 ### Hello Playbooks
 
-Let's confirm our ansible/node0 VM setup still works.
+Let's confirm our ansible setup still works.
 
 ```bash
 ansible all -i inventory -m ping
