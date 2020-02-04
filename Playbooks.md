@@ -183,34 +183,29 @@ You can also load variables from an external file with `vars_files:`.
 
 Variables can also be loaded as prompts, with `vars_prompt`, or passed on the command line: `--extra-vars "version=1.23.45 other_variable=foo"`.
 
-### Understanding playbook output.
-
-
-
 ### Loops
 
-In examples folder, execute the [loops.yml](examples/loops.yml) playbook.
-This will install git and print out a list of packages. Instead of running on your localhost, this will run on all servers in the `[nodes]` group. The `-s` option will allow the playbook to sudo as root if necessary.
+Ansible provides the ability to [loop over lists](https://docs.ansible.com/ansible/2.4/playbooks_loops.html) defined inside a variable. To use this capability, you simply define a `with_items` property on a task object.
 
-```bash
-ansible-playbook -i inventory loops.yml -b
+```yaml
+- hosts: all
+
+  vars: 
+    packages:
+      - gcc
+      - debconf-utils
+      - git
+
+  tasks: 
+    - name: Install git
+      apt: pkg={{item}} state=present update_cache=yes
+      become: yes
+      with_items: "{{packages}}"
 ```
 
-Extend the example to run now install all packages defined in the packages variable.
+### Vaults
 
-### Practicing commands
-
-The simpliest way to get started is to try executing some basic tasks inside of a playbook.
-In examples folder, execute the [commands.yml](examples/commands.yml) playbook.
-
-```bash
-ansible-playbook examples/commands.yml -i inventory.ini
-```
-
-This will ensure a .ssh directory exists and creates a ssh key. Inspect the directory and ensure it exists. Notice that this runs on your ansible server and not your nodes. That's because the hosts in the playbook is specified as localhost.
-
-* Run the command again. You should see changes=0.
-* Manually delete the ssk key that was generated. Run the command again.
+It is possible to store secrets encrypted using [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html). This is recommended if you need to store tokens, passwords, or ssh keys.
 
 ### Output/Register/Conditions
 
@@ -233,10 +228,6 @@ Its changed status will change depending on whether there is a list item with z.
 
 Mixing `register`, `changed_when`, and `with_items` can get tricky. Based on context, sometimes the variable saved in register will change per item during task execution. Othertimes, when all done contain a list of all items and their results. For some more details:
 [see this example](http://stackoverflow.com/a/41292571/547112).
-
-Ok. Check out [results.yml](examples/results.yml). There is a task that downloads a file. But since it uses the `shell` command it doesn't know that the task has already been done. It isn't idempotent and it will wastefully download the file over and over again!
-
-* Change the command so that there is a task that [first checks if the file already exists](http://docs.ansible.com/ansible/stat_module.html) in /tmp. Only download when it doesn't exist by adding a `when` condition. Note that the it is possible to pass this option to the shell command, however, it there are some limits to this approach: `creates={{dest_dir}}/{{exchange_item}}"`.
 
 ### Templates
 
@@ -261,11 +252,27 @@ Templates can be instantiated and copied to a server with the following task.
 
 This can be useful for setting up complex configuration files such as apache, mysql, or jenkins. 
 
-**See if you can create a new task using a template**.
+## Practicing commands
 
-### Vaults
+The simpliest way to get started is to try executing some basic tasks inside of a playbook.
+In examples folder, execute the [commands.yml](examples/commands.yml) playbook.
 
-It is possible to store secrets encrypted using [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html). This is recommended if you need to store tokens, passwords, or ssh keys.
+```bash
+ansible-playbook examples/commands.yml -i inventory.ini
+```
+
+This will ensure a .ssh directory exists and creates a ssh key. Inspect the directory and ensure it exists. Notice that this runs on your ansible server and not your nodes. That's because the hosts in the playbook is specified as localhost.
+
+* Run the command again. You should see changes=0.
+* Manually delete the ssk key that was generated. Run the command again.
+
+### Idempotence
+
+By default, most ansible modules are written to be idempotent. However, if you need to use the command/shell module, this will break things.
+
+**ACTIVITY**: Ok. Check out [results.yml](examples/results.yml). There is a task that downloads a file. But since it uses the `shell` command it doesn't know that the task has already been done. It isn't idempotent and it will wastefully download the file over and over again!
+
+* Change the command so that there is a task that [first checks if the file already exists](http://docs.ansible.com/ansible/stat_module.html) in /tmp. Only download when it doesn't exist by adding a `when` condition. Note that the it is possible to pass this option to the shell command, however, it there are some limits to this approach: `creates={{dest_dir}}/{{exchange_item}}"`.
 
 ### Content Layout/Roles
 
