@@ -1,5 +1,5 @@
 ---
-- hosts: nodes
+- hosts: all
 
   vars: 
     - exchange_item: meta.mathematica.stackexchange.com.7z
