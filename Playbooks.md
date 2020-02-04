@@ -60,12 +60,11 @@ var doc = yaml.safeLoad(yamlFile, 'utf8');
 
 ```yaml
 --- # Headline denoting start of yaml document.
-- hosts: all # This line does two things: 
-# 1) it starts the first object in the list of playbooks. Technically, you could have more than one playbook in the same file by adding another list item.
-# 2) If declares hosts="all" for the playbook object.
+# This the first object in the list of playbooks. You can have more than one.
+- hosts: all # Declares hosts="all" for the playbook object.
 ```
 
-Hosts refers to entries in your inventory. If our inventory was as follows:
+Hosts refers to entries in your inventory. Consider the following inventory:
 
 ```ini
 mail.example.com
@@ -80,7 +79,7 @@ db2.example.com
 db3.example.com
 ```
 
-In this case, `hosts: "all"` would refer to all six servers in the inventory. If we set `hosts: "webservers"`, then we would only refer to `www1.example.com` and `www2.example.com`.
+In this case, `hosts: "all"` would every server in the inventory (all six). If we set `hosts: "webservers"`, then we would only refer to `www1.example.com` and `www2.example.com`.
 
 Finally, it is possible to run commands on the local server with ansible itself, by providing `hosts: "localhost"`.
 
