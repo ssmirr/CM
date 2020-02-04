@@ -42,7 +42,7 @@ $ VBoxManage list vms
 Create the Virtual Machine.
 
 ```bash
-$ bakerx run ansible-srv bionic --ip 192.168.33.10
+$ bakerx run ansible-srv bionic --ip 192.168.33.10 --sync
 ```
 
 You should see bakerx create the virtual machine with a hostonly network.
