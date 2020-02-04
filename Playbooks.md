@@ -203,6 +203,29 @@ Ansible provides the ability to [loop over lists](https://docs.ansible.com/ansib
       with_items: "{{packages}}"
 ```
 
+### Templates
+
+Templates are powerful ways to setup basic configuration settings without hard coding values.
+When you use a template, it will get the template, fill in any parameters, and then copy the file over to the destination. 
+
+For example, a template file, called `.my.cnf.j2` containing the following:
+
+```ini
+[client]
+user=root
+password={{root_db_password}}
+local_infile=1
+```
+
+Templates can be instantiated and copied to a server with the following task.
+
+```yaml
+- name: copy .my.cnf file with mysql root password credentials
+  template: src=templates/root/.my.cnf dest={{ ansible_env.HOME}}/.my.cnf owner={{mysql_account}} mode=0600
+```
+
+This can be useful for setting up complex configuration files such as apache, mysql, or jenkins. 
+
 ### Vaults
 
 It is possible to store secrets encrypted using [ansible-vault](http://docs.ansible.com/ansible/playbooks_vault.html). This is recommended if you need to store tokens, passwords, or ssh keys.
@@ -229,29 +252,6 @@ Its changed status will change depending on whether there is a list item with z.
 Mixing `register`, `changed_when`, and `with_items` can get tricky. Based on context, sometimes the variable saved in register will change per item during task execution. Othertimes, when all done contain a list of all items and their results. For some more details:
 [see this example](http://stackoverflow.com/a/41292571/547112).
 
-### Templates
-
-Templates are powerful ways to setup basic configuration settings without hard coding values.
-When you use a template, it will get the template, fill in any parameters, and then copy the file over to the destination. 
-
-For example, a template file, called `.my.cnf.j2` containing the following:
-
-```ini
-[client]
-user=root
-password={{root_db_password}}
-local_infile=1
-```
-
-Templates can be instantiated and copied to a server with the following task.
-
-```yaml
-- name: copy .my.cnf file with mysql root password credentials
-  template: src=templates/root/.my.cnf dest={{ ansible_env.HOME}}/.my.cnf owner={{mysql_account}} mode=0600
-```
-
-This can be useful for setting up complex configuration files such as apache, mysql, or jenkins. 
-
 ## Practicing commands
 
 The simpliest way to get started is to try executing some basic tasks inside of a playbook.
@@ -261,7 +261,9 @@ In examples folder, execute the [commands.yml](examples/commands.yml) playbook.
 ansible-playbook examples/commands.yml -i inventory.ini
 ```
 
-This will ensure a .ssh directory exists and creates a ssh key. Inspect the directory and ensure it exists. Notice that this runs on your ansible server and not your nodes. That's because the hosts in the playbook is specified as localhost.
+This will ensure a .ssh directory exists and creates a ssh key. Inspect the directory and ensure it exists. Notice that this runs on your ansible server (`hosts: localhost`).
+
+**ACTIVITY:**
 
 * Run the command again. You should see changes=0.
 * Manually delete the ssk key that was generated. Run the command again.
