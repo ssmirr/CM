@@ -1,6 +1,11 @@
+# Ansible Playbooks
+
+[Building a Configuration Server](README.md) | [Ansible Playbooks](Playbooks.md)
+
+
 Although you can run ad-hoc commands in ansible, in practice, you'll largely be expected to create ansible playbooks. Ansible playbooks are essentially files formatted as [yaml](http://docs.ansible.com/ansible/YAMLSyntax.html).
 
-### Hello Playbooks
+## Hello Playbooks
 
 Let's confirm our ansible setup still works.
 

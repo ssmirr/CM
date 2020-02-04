@@ -1,6 +1,8 @@
 Configuration Management Workshop
 ----------------------------------
 
+[Building a Configuration Server](README.md) | [Ansible Playbooks](Playbooks.md)
+
 In this workshop, we'll cover the basics of setting up a simple configuration server, enabling ssh access, and using ansible to configure a simple web server.
 
 ![image](img/ansible-setup.png)
