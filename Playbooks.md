@@ -56,6 +56,8 @@ var doc = yaml.safeLoad(yamlFile, 'utf8');
 
 ### Basic playbook structure
 
+Let's break down our example ping playbook to understand it's basic parts.
+
 ##### Hosts 
 
 ```yaml
@@ -95,15 +97,21 @@ When ansible connects to a server over ssh, it will run special python modules f
 
 Tasks are the essential component of a playbook. Here is where you run actual commands on the server.
 
-```yaml: 
+```yaml
   tasks:
     - name: ping all hosts # purely for documentation, this is what is printed out when you run the playbook.
       ping: # We are running the ping module. Notice that no arguments are needed.
-    - name: Install nodejs
-      apt: pkg='nodejs' state='present' # We are telling the apt module to essentially run `apt-get install nodejs`.
 ```
 
 ##### Inline style versus explicit style
+
+You might often see playbooks written as follows:
+
+```yaml
+  tasks:
+    - name: Install nodejs
+      apt: pkg='nodejs' state='present' # We are telling the apt module to essentially run `apt-get install nodejs`.
+```
 
 Notice that we could write our apt install task in a different way.
 
@@ -115,7 +123,7 @@ Notice that we could write our apt install task in a different way.
         state: present
 ```
 
-This will do absolutely the same thing. With the "inline" ansible will parse out the object properties from the string it is given. Here, we explicitly specify the `pkg` and `state` properties.
+Both snippets will do absolutely the same thing. With the "inline style" ansible will parse out the object properties from the string it is given. In the second snippet, we explicitly specify the `pkg` and `state` properties for the apt module.
 
 ### Modules
 
@@ -144,6 +152,52 @@ Ansible's value is in the rich library of modules it provides to make it easier 
     mode: u=rw,g=r,o=r
 ```
 
+### Variables
+
+Ansible provides [variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html) as a way to avoid hard-coding configuration inside ansible tasks.
+
+You can declare variables as part of the top-level playbook object and reference variables inside of the playbook by using `"{{variable_name}}"`.
+
+```yaml
+  vars:
+    user: "mattermost"
+    group: "mattermost"
+    file: "config.conf"
+      
+  tasks:
+    - name: Copy file with owner and permission, using symbolic representation
+      copy:
+        src: /srv/myfiles/foo.conf
+        dest: "/etc/{{file}}"
+        owner: "{{user}}"
+        group: "{{group}}"
+        mode: u=rw,g=r,o=r
+```
+
+You can also load variables from an external file with `vars_files:`.
+
+```yaml
+  vars_files:
+    - /vars/external_vars.yml
+```
+
+Variables can also be loaded as prompts, with `vars_prompt`, or passed on the command line: `--extra-vars "version=1.23.45 other_variable=foo"`.
+
+### Understanding playbook output.
+
+
+
+### Loops
+
+In examples folder, execute the [loops.yml](examples/loops.yml) playbook.
+This will install git and print out a list of packages. Instead of running on your localhost, this will run on all servers in the `[nodes]` group. The `-s` option will allow the playbook to sudo as root if necessary.
+
+```bash
+ansible-playbook -i inventory loops.yml -b
+```
+
+Extend the example to run now install all packages defined in the packages variable.
+
 ### Practicing commands
 
 The simpliest way to get started is to try executing some basic tasks inside of a playbook.
@@ -157,25 +211,6 @@ This will ensure a .ssh directory exists and creates a ssh key. Inspect the dire
 
 * Run the command again. You should see changes=0.
 * Manually delete the ssk key that was generated. Run the command again.
-
-### Understanding playbook output.
-
-
-
-### Variables
-
-
-
-### Loops
-
-In examples folder, execute the [loops.yml](examples/loops.yml) playbook.
-This will install git and print out a list of packages. Instead of running on your localhost, this will run on all servers in the `[nodes]` group. The `-s` option will allow the playbook to sudo as root if necessary.
-
-```bash
-ansible-playbook -i inventory loops.yml -s
-```
-
-Extend the example to run now install all packages defined in the packages variable.
 
 ### Output/Register/Conditions
 
