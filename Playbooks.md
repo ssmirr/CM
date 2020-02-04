@@ -273,7 +273,21 @@ This will ensure a .ssh directory exists and creates a ssh key. Inspect the dire
 * Run the command again. You should see changes=0.
 * Manually delete the ssk key that was generated. Run the command again.
 
-### Idempotence
+### Practice updating script
+
+Given this yaml fragment, attempt to write a playbook called node.yml that installs node.js on servers in your inventory. 
+
+```yaml
+  tasks:
+    - name: Install nodejs
+      apt: 
+        pkg: nodejs
+        state: present
+```
+
+**Hint**: You will need to a) add a hosts section, b) Ensure apt-get update has been run at least once with `update_cache:yes`, c) ensure you can run with privileges (`become: yes`).
+
+### Enabling Idempotence for commands
 
 By default, most ansible modules are written to be idempotent. However, if you need to use the command/shell module, this will break things.
 
