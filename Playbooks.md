@@ -38,6 +38,7 @@ $ npm install js-yaml
 **ACTIVITY**: Print name and command property of each object in "tasks" list.
 
 ```javascript
+const yaml = require('js-yaml');
 let yamlFile = `
 top:
   children:
@@ -50,6 +51,7 @@ top:
     - name: Run ls command
       command: ls
 `;
+var doc = yaml.safeLoad(yamlFile, 'utf8');
 ```
 
 ### Basic playbook structure
