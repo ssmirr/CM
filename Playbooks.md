@@ -8,7 +8,7 @@ Let's confirm our ansible setup still works.
 ansible all -i inventory -m ping
 ```
 
-Instead of running this on the command line, we can run this within an ansible playbook (see [ping.yml](ping.yml)). 
+Instead of running this on the command line, we can run this within an ansible playbook (see [ping.yml](examples/ping.yml)). 
 
 ```yaml
 ---
@@ -25,13 +25,133 @@ You can run this playbook by running:
 ansible-playbook ping.yml -i inventory
 ```
 
-### Commands/Modules
+### Understanding yaml
+
+Understanding and writing ansible is largely a function of understanding _YAML_ (YAML Ain't Markup Language or "yet another markup language"), which can be thought as [a superset of JSON](https://stackoverflow.com/questions/1726802/what-is-the-difference-between-yaml-and-json/1729545#1729545).
+
+*Note*: YAML can be very picky about indentation.
+
+You can read a [nice overview](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) on the syntax. But first, we will understand it by parsing it.
+
+```
+$ npm install js-yaml
+```
+
+*ACTIVITY*: Print name and command property of each object in "tasks" list.
+
+```javascript
+let yamlFile = `
+top:
+  children:
+    - one
+    - two
+    - three
+  tasks:
+    - name: Install nodejs
+      apt: pkg='nodejs' state='present'
+    - name: Run ls command
+      command: ls
+`;
+```
+
+### Basic playbook structure
+
+##### Hosts 
+
+```yaml
+--- # Headline denoting start of yaml document.
+- hosts: all # This line does two things: 
+# 1) it starts the first object in the list of playbooks. Technically, you could have more than one playbook in the same file by adding another list item.
+# 2) If declares hosts="all" for the playbook object.
+```
+
+Hosts refers to entries in your inventory. If our inventory was as follows:
+
+```ini
+mail.example.com
+
+[webservers]
+www1.example.com
+www2.example.com
+
+[dbservers]
+db1.example.com
+db2.example.com
+db3.example.com
+```
+
+In this case, `hosts: "all"` would refer to all six servers in the inventory. If we set `hosts: "webservers"`, then we would only refer to `www1.example.com` and `www2.example.com`.
+
+Finally, it is possible to run commands on the local server with ansible itself, by providing `hosts: "localhost"`.
+
+##### Gather facts
+
+```yaml
+  gather_facts: no
+```
+
+When ansible connects to a server over ssh, it will run special python modules for gather statistics about the server and obtaining state needed for running the playbook. It can be desirable to turn this off if we're establishing basic connectivity for two reasons: 1) for performance, 2) for cases were repairs must be done against server. Imagine python was broken or missing on your server, ansible would not be able to work. However, by turning off `gather_facts`, and then running `- raw: sudo apt-get install -y python-minimal`, you could fix this problem.
+
+##### Tasks
+
+Tasks are the essential component of a playbook. Here is where you run actual commands on the server.
+
+```yaml: 
+  tasks:
+    - name: ping all hosts # purely for documentation, this is what is printed out when you run the playbook.
+      ping: # We are running the ping module. Notice that no arguments are needed.
+    - name: Install nodejs
+      apt: pkg='nodejs' state='present' # We are telling the apt module to essentially run `apt-get install nodejs`.
+```
+
+##### Inline style versus explicit style
+
+Notice that we could write our apt install task in a different way.
+
+```yaml
+  tasks:
+    - name: Install nodejs
+      apt: 
+        pkg: nodejs
+        state: present
+```
+
+This will do absolutely the same thing. With the "inline" ansible will parse out the object properties from the string it is given. Here, we explicitly specify the `pkg` and `state` properties.
+
+### Modules
+
+Ansible's value is in the rich library of modules it provides to make it easier to run commands on a server.
+
+* Install packages ([apt](https://docs.ansible.com/ansible/latest/modules/apt_module.html), [yum](https://docs.ansible.com/ansible/latest/modules/yum_module.html), [dnf](https://docs.ansible.com/ansible/latest/modules/dnf_module.html)).
+
+* Manage services on the server.
+
+```yaml
+- name: Start service httpd, if not started
+  service:
+    name: httpd
+    state: started
+```
+
+* Perform file operations ([file](https://docs.ansible.com/ansible/latest/modules/file_module.html), [copy](https://docs.ansible.com/ansible/latest/modules/copy_module.html), [template](https://docs.ansible.com/ansible/latest/modules/template_module.html)):
+
+```yaml
+- name: Copy file with owner and permission, using symbolic representation
+  copy:
+    src: /srv/myfiles/foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: u=rw,g=r,o=r
+```
+
+### Practicing commands
 
 The simpliest way to get started is to try executing some basic tasks inside of a playbook.
 In examples folder, execute the [commands.yml](examples/commands.yml) playbook.
 
 ```bash
-ansible-playbook commands.yml
+ansible-playbook examples/commands.yml -i inventory.ini
 ```
 
 This will ensure a .ssh directory exists and creates a ssh key. Inspect the directory and ensure it exists. Notice that this runs on your ansible server and not your nodes. That's because the hosts in the playbook is specified as localhost.
@@ -39,7 +159,15 @@ This will ensure a .ssh directory exists and creates a ssh key. Inspect the dire
 * Run the command again. You should see changes=0.
 * Manually delete the ssk key that was generated. Run the command again.
 
-### Variables/Loops
+### Understanding playbook output.
+
+
+
+### Variables
+
+
+
+### Loops
 
 In examples folder, execute the [loops.yml](examples/loops.yml) playbook.
 This will install git and print out a list of packages. Instead of running on your localhost, this will run on all servers in the `[nodes]` group. The `-s` option will allow the playbook to sudo as root if necessary.
