@@ -27,17 +27,15 @@ ansible-playbook ping.yml -i inventory
 
 ### Understanding yaml
 
-Understanding and writing ansible is largely a function of understanding _YAML_ (YAML Ain't Markup Language or "yet another markup language"), which can be thought as [a superset of JSON](https://stackoverflow.com/questions/1726802/what-is-the-difference-between-yaml-and-json/1729545#1729545).
+Understanding and writing ansible is largely a function of understanding _YAML_ (YAML Ain't Markup Language or formally Yet Another Markup Languageß), which can be thought as [a superset of JSON](https://stackoverflow.com/questions/1726802/what-is-the-difference-between-yaml-and-json/1729545#1729545).
 
-*Note*: YAML can be very picky about indentation.
-
-You can read a [nice overview](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) on the syntax. But first, we will understand it by parsing it.
+You can read a [nice overview](https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html) on the syntax. But first, we will understand it by parsing it. *Note*: YAML can be very picky about indentation.
 
 ```
 $ npm install js-yaml
 ```
 
-*ACTIVITY*: Print name and command property of each object in "tasks" list.
+**ACTIVITY**: Print name and command property of each object in "tasks" list.
 
 ```javascript
 let yamlFile = `
